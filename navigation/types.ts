@@ -5,6 +5,7 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export type MainStackParamList = {
   Profiles: undefined;
+  AddProfile: undefined;
   TabBar: { petId: string };
 };
 
@@ -17,6 +18,10 @@ export type BottomTabParamList = {
 export type ProfilesScreenProps = NativeStackScreenProps<
   MainStackParamList,
   "Profiles"
+>;
+export type AddProfileScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  "AddProfile"
 >;
 export type TabBarScreenProps = NativeStackScreenProps<
   MainStackParamList,

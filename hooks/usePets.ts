@@ -7,6 +7,23 @@ export function usePets() {
   const [pets, setPets] = useState<Pet[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  
+  const [adding, setAdding] = useState<boolean>(false);
+  const [addError, setAddError] = useState<string | null>(null);
+
+  const addNewPet = async (newPet: Omit<Pet, "id" | "created_at">) => {
+    try {
+      setAdding(true);
+      setAddError(null);
+
+      const addedPet = await petService.createPet(newPet);
+      setPets((prevPets) => [...prevPets, addedPet]);
+    } catch (err: unknown) {
+      setAddError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setAdding(false);
+    }
+  };
 
   const fetchPets = useCallback(async () => {
     try {
@@ -30,5 +47,8 @@ export function usePets() {
     pets,
     loading,
     error,
+    adding,
+    addError,
+    addNewPet,
   };
 }

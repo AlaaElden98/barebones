@@ -1,2 +1,2 @@
-export * from "./profiles/Profiles.screen";
+export * from "./profiles";
 export * from "./tabs";

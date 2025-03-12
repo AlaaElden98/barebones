@@ -47,15 +47,23 @@ export const petService = {
   },
 
   async createPet(pet: Omit<Pet, "id" | "created_at">): Promise<Pet> {
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    const newPet: Pet = {
-      ...pet,
-      id: Math.random().toString(36).substr(2, 9),
-      created_at: new Date().toISOString(),
-    };
-    mockPets.push(newPet);
-    return newPet;
+    try {
+      const { data, error } = await supabase
+        .from("pets")
+        .insert([pet])
+        .select("*")
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
   },
 
   async updatePet(id: string, updates: Partial<Pet>): Promise<Pet> {

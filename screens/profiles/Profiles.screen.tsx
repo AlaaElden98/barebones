@@ -15,6 +15,10 @@ export const ProfilesScreen: React.FC<ProfilesScreenProps> = ({
       <Text>isLoading: {loading}</Text>
       <Text>error: {error}</Text>
       <Button
+        title="Add Profile"
+        onPress={() => navigation.navigate("AddProfile")}
+      />
+      <Button
         title="Go to Body Condition"
         onPress={() =>
           navigation.navigate("TabBar", {

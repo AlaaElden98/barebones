@@ -16,7 +16,7 @@ const MainStackNavigator = () => {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   useEffect(() => {
-    // AsyncStorage.clear()
+    // AsyncStorage.clear();
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
@@ -54,7 +54,11 @@ const MainStackNavigator = () => {
           </Stack.Screen>
         </>
       ) : (
-        <Stack.Screen name="Auth" component={Auth} />
+        <Stack.Screen
+          name="Auth"
+          component={Auth}
+          options={{ headerShown: false }}
+        />
       )}
     </Stack.Navigator>
   );

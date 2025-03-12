@@ -6,6 +6,7 @@ import {
   AppState,
   TextInput,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { useState } from "react";
 
@@ -27,34 +28,34 @@ export const Auth: React.FC<AuthScreenProps> = ({ navigation }) => {
 
   async function signInWithEmail() {
     setLoading(true);
-    const { error, data } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     });
-    console.log(data, error);
     if (error) Alert.alert(error.message);
     setLoading(false);
   }
 
   async function signUpWithEmail() {
     setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: email,
       password: password,
     });
-
-    if (error) Alert.alert(error.message);
-    if (!session)
+    if (error) {
+      Alert.alert(error.message);
+      setLoading(false);
+      return;
+    }
+    if (!data.session) {
       Alert.alert("Please check your inbox for email verification!");
-    setLoading(false);
+      setLoading(false);
+    }
   }
 
   return (
-    <View style={styles.container}>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.verticallySpaced}>
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -85,14 +86,16 @@ export const Auth: React.FC<AuthScreenProps> = ({ navigation }) => {
           onPress={() => signUpWithEmail()}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 40,
+    flex: 1,
     padding: 12,
+    alignItems: "center",
+    marginTop: 200,
   },
   verticallySpaced: {
     paddingTop: 4,
@@ -113,9 +116,5 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
-  },
-  errorText: {
-    color: "red",
-    marginTop: 10,
   },
 });

@@ -26,6 +26,11 @@ export const AddProfile: React.FC<AddProfileScreenProps> = ({
   const [age, setAge] = useState("");
 
   const handleSubmit = async () => {
+    if (Number.isNaN(Number(age))) {
+      Alert.alert("Error", "Age must be a number.");
+      return;
+    }
+
     if (!name || !species || !age) {
       Alert.alert("Error", "Please fill in all required fields.");
       return;

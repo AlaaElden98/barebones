@@ -11,9 +11,7 @@ export function useBodyConditionLogs(petId: string) {
   const [adding, setAdding] = useState<boolean>(false);
   const [addError, setAddError] = useState<string | null>(null);
 
-  const addNewLog = async (
-    newLog: Omit<BodyConditionLog, "id" | "created_at" | "pet_id">
-  ) => {
+  const addNewLog = async (newLog: Omit<BodyConditionLog, "id" | "pet_id">) => {
     try {
       setAdding(true);
       setAddError(null);

@@ -46,7 +46,7 @@ export const BodyCondition: React.FC<BodyConditionScreenProps> = ({
         visible={isModalVisible}
         onClose={() => setIsModalVisible(false)}
         onSubmit={onSubmit}
-        type="bodyCondition"
+        type="body"
       />
       <FlatList
         data={logs}

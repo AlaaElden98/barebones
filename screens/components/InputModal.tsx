@@ -9,8 +9,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import type { LogType } from "@/types";
+
 type InputModalProps = {
-  type: "bodyCondition" | "weightLog" | "vetVisit";
+  type: LogType;
   visible: boolean;
   onClose: () => void;
   onSubmit: (data: string) => void;
@@ -38,7 +40,7 @@ export const InputModal = ({
       Alert.alert("Invalid input", "Input cannot be empty");
       return;
     }
-    if (type === "weightLog") {
+    if (type === "weight") {
       if (isNumeric(input)) {
         onSubmit(input);
         setInput("");
@@ -66,12 +68,12 @@ export const InputModal = ({
         <View style={styles.contentContainer}>
           <TextInput
             style={styles.input}
-            placeholder={type === "weightLog" ? "Weight by KG" : undefined}
+            placeholder={type === "weight" ? "Weight by KG" : undefined}
             value={input}
             onChangeText={setInput}
-            keyboardType={type === "weightLog" ? "numeric" : "default"}
-            multiline={type === "vetVisit"}
-            maxLength={type !== "vetVisit" ? 50 : undefined}
+            keyboardType={type === "weight" ? "numeric" : "default"}
+            multiline={type === "vet"}
+            maxLength={type !== "vet" ? 50 : undefined}
             autoFocus
           />
           <TouchableOpacity onPress={handleSubmit}>

@@ -1,14 +1,19 @@
 import type React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
+import { usePets } from "@/hooks";
 import type { ProfilesScreenProps } from "@/navigation/types";
 
 export const ProfilesScreen: React.FC<ProfilesScreenProps> = ({
   navigation,
 }) => {
+  const { pets, loading, error } = usePets();
   return (
     <View style={styles.container}>
       <Text>Profiles</Text>
+      <Text>{JSON.stringify(pets)}</Text>
+      <Text>isLoading: {loading}</Text>
+      <Text>error: {error}</Text>
       <Button
         title="Go to Body Condition"
         onPress={() =>

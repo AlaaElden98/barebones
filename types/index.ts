@@ -27,7 +27,7 @@ export interface WeightLog {
 export interface BodyConditionLog {
   date: string;
   id: string;
-  body_condition: string | number;
+  body_condition: string;
   pet_id: string;
 }
 

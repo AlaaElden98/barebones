@@ -36,6 +36,6 @@ export type LogType = "weight" | "body" | "vet";
 export interface VetVisitLog {
   id: string;
   pet_id: string;
-  notes: string | null;
+  notes: string;
   date: string;
 } 

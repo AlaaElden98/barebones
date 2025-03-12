@@ -1,5 +1,5 @@
 import { supabase } from "@/utils/supbase";
-import type { BodyConditionLog, Pet, WeightLog } from "../types";
+import type { BodyConditionLog, Pet, VetVisitLog, WeightLog } from "../types";
 
 export const petService = {
   async getPets(userId: string): Promise<Pet[]> {
@@ -114,6 +114,48 @@ export const petService = {
     try {
       const { data, error } = await supabase
         .from("weight_logs")
+        .insert([{ ...log, pet_id: petId }])
+        .select("*")
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
+  },
+
+  async getVetVisitLogs(petId: string): Promise<VetVisitLog[]> {
+    try {
+      const { data, error } = await supabase
+        .from("vet_visit_logs")
+        .select("*")
+        .eq("pet_id", petId)
+        .order("date", { ascending: false });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data || [];
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
+  },
+  async createVetVisitLog(
+    log: Omit<VetVisitLog, "id" | "pet_id">,
+    petId: string
+  ): Promise<VetVisitLog> {
+    try {
+      const { data, error } = await supabase
+        .from("vet_visit_logs")
         .insert([{ ...log, pet_id: petId }])
         .select("*")
         .single();

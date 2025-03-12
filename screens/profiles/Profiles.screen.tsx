@@ -6,8 +6,9 @@ import type { ProfilesScreenProps } from "@/navigation/types";
 
 export const ProfilesScreen: React.FC<ProfilesScreenProps> = ({
   navigation,
+  session,
 }) => {
-  const { pets, loading, error } = usePets();
+  const { pets, loading, error } = usePets(session.user.id);
   return (
     <View style={styles.container}>
       <Text>Profiles</Text>

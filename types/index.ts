@@ -5,6 +5,7 @@ export interface Pet {
   breed?: string | null;
   age: number | string;
   created_at: string;
+  owner_id: string;
 }
 
 export interface Profile {

@@ -14,8 +14,11 @@ import { usePets } from "@/hooks";
 import type { Pet } from "@/types";
 import type { AddProfileScreenProps } from "@/navigation/types";
 
-export const AddProfile: React.FC<AddProfileScreenProps> = ({ navigation }) => {
-  const { addNewPet, adding, addError } = usePets();
+export const AddProfile: React.FC<AddProfileScreenProps> = ({
+  navigation,
+  session,
+}) => {
+  const { addNewPet, adding, addError } = usePets(session.user.id);
 
   const [name, setName] = useState("");
   const [species, setSpecies] = useState("");
@@ -28,7 +31,7 @@ export const AddProfile: React.FC<AddProfileScreenProps> = ({ navigation }) => {
       return;
     }
 
-    const newPet: Omit<Pet, "id" | "created_at"> = {
+    const newPet: Omit<Pet, "id" | "created_at" | "owner_id"> = {
       name,
       species,
       breed: breed || undefined,

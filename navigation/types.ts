@@ -1,3 +1,4 @@
+import type { Session } from "@supabase/supabase-js";
 import type { RouteProp } from "@react-navigation/native";
 import type { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -6,6 +7,7 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 export type MainStackParamList = {
   Profiles: undefined;
   AddProfile: undefined;
+  Auth: undefined;
   TabBar: { petId: string };
 };
 
@@ -18,10 +20,18 @@ export type BottomTabParamList = {
 export type ProfilesScreenProps = NativeStackScreenProps<
   MainStackParamList,
   "Profiles"
->;
+> & {
+  session: Session;
+};
 export type AddProfileScreenProps = NativeStackScreenProps<
   MainStackParamList,
   "AddProfile"
+> & {
+  session: Session;
+};
+export type AuthScreenProps = NativeStackScreenProps<
+  MainStackParamList,
+  "Auth"
 >;
 export type TabBarScreenProps = NativeStackScreenProps<
   MainStackParamList,

@@ -5,7 +5,7 @@ import { petService } from "@/services/petService";
 
 export function usePets() {
   const [pets, setPets] = useState<Pet[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   
   const [adding, setAdding] = useState<boolean>(false);

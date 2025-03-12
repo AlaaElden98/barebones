@@ -12,7 +12,7 @@ export const ProfilesScreen: React.FC<ProfilesScreenProps> = ({
     <View style={styles.container}>
       <Text>Profiles</Text>
       <Text>{JSON.stringify(pets)}</Text>
-      <Text>isLoading: {loading}</Text>
+      <Text>isLoading: {loading.toString()}</Text>
       <Text>error: {error}</Text>
       <Button
         title="Add Profile"

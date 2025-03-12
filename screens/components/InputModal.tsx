@@ -41,11 +41,13 @@ export const InputModal = ({
     if (type === "weightLog") {
       if (isNumeric(input)) {
         onSubmit(input);
+        setInput("");
       } else {
         Alert.alert("Invalid input", "Please enter a valid number");
       }
     } else {
       onSubmit(input);
+      setInput("");
     }
   };
 

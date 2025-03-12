@@ -1,9 +1,7 @@
-import { View } from "react-native";
-import { ActivityIndicator } from "react-native";
 import React, { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
+import { TouchableOpacity, View, Text, ActivityIndicator } from "react-native";
 
 import { supabase } from "@/utils/supbase";
 import type { MainStackParamList } from "./types";
@@ -16,7 +14,6 @@ const MainStackNavigator = () => {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   useEffect(() => {
-    // AsyncStorage.clear();
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });
@@ -38,7 +35,17 @@ const MainStackNavigator = () => {
     <Stack.Navigator>
       {session?.user ? (
         <>
-          <Stack.Screen name="Profiles" options={{ headerBackVisible: false }}>
+          <Stack.Screen
+            name="Profiles"
+            options={{
+              headerBackVisible: false,
+              headerLeft: () => (
+                <TouchableOpacity onPress={() => supabase.auth.signOut()}>
+                  <Text>Logout</Text>
+                </TouchableOpacity>
+              ),
+            }}
+          >
             {(props) => <ProfilesScreen {...props} session={session} />}
           </Stack.Screen>
           <Stack.Screen name="AddProfile">

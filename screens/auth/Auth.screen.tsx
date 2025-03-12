@@ -27,6 +27,11 @@ export const Auth: React.FC<AuthScreenProps> = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   async function signInWithEmail() {
+    if (!checkFormValidation()) {
+      Alert.alert("Please enter a valid email and password");
+      return;
+    }
+
     setLoading(true);
     const { error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -37,6 +42,11 @@ export const Auth: React.FC<AuthScreenProps> = ({ navigation }) => {
   }
 
   async function signUpWithEmail() {
+    if (!checkFormValidation()) {
+      Alert.alert("Please enter a valid email and password");
+      return;
+    }
+
     setLoading(true);
     const { data, error } = await supabase.auth.signUp({
       email: email,
@@ -52,6 +62,11 @@ export const Auth: React.FC<AuthScreenProps> = ({ navigation }) => {
       setLoading(false);
     }
   }
+
+  const checkFormValidation = () => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email) && password.length >= 6;
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

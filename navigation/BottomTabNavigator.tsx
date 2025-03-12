@@ -11,29 +11,12 @@ const TabBar = createBottomTabNavigator<BottomTabParamList>();
 const BottomTabNavigator = ({ petId, navigation }: BottomTabNavigatorProps) => {
   return (
     <TabBar.Navigator
-      initialRouteName="BodyCondition"
+      initialRouteName="WeightLogs"
       screenOptions={{
         tabBarShowLabel: false,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
       }}
     >
-      <TabBar.Screen
-        name="BodyCondition"
-        initialParams={{ petId }}
-        component={BodyCondition}
-        options={{
-          tabBarIcon(props) {
-            return (
-              <FontAwesome
-                name="heartbeat"
-                size={props.size}
-                color={props.color}
-              />
-            );
-          },
-          headerTitle: "Body Condition",
-        }}
-      />
       <TabBar.Screen
         name="WeightLogs"
         initialParams={{ petId }}
@@ -49,6 +32,23 @@ const BottomTabNavigator = ({ petId, navigation }: BottomTabNavigatorProps) => {
             );
           },
           headerTitle: "Weight Logs",
+        }}
+      />
+      <TabBar.Screen
+        name="BodyCondition"
+        initialParams={{ petId }}
+        component={BodyCondition}
+        options={{
+          tabBarIcon(props) {
+            return (
+              <FontAwesome
+                name="heartbeat"
+                size={props.size}
+                color={props.color}
+              />
+            );
+          },
+          headerTitle: "Body Condition",
         }}
       />
       <TabBar.Screen

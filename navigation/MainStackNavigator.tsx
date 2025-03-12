@@ -48,7 +48,10 @@ const MainStackNavigator = () => {
           >
             {(props) => <ProfilesScreen {...props} session={session} />}
           </Stack.Screen>
-          <Stack.Screen name="AddProfile">
+          <Stack.Screen
+            name="AddProfile"
+            options={{ headerTitle: "Add New Pet" }}
+          >
             {(props) => <AddProfile {...props} session={session} />}
           </Stack.Screen>
           <Stack.Screen name="TabBar" options={{ headerShown: false }}>

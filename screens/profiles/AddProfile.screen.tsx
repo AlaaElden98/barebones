@@ -68,8 +68,6 @@ export const AddProfile: React.FC<AddProfileScreenProps> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add a New Pet</Text>
-
       <TextInput
         style={styles.input}
         placeholder="Pet Name"
@@ -112,7 +110,9 @@ export const AddProfile: React.FC<AddProfileScreenProps> = ({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     padding: 20,
+    paddingTop: 40,
     backgroundColor: "#fff",
     borderRadius: 8,
     shadowColor: "#000",

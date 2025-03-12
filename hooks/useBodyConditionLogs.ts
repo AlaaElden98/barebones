@@ -21,6 +21,7 @@ export function useBodyConditionLogs(petId: string) {
       setLogs((prevLogs) => [addedLog, ...prevLogs]);
     } catch (err: unknown) {
       setAddError(err instanceof Error ? err.message : "Something went wrong");
+      throw err;
     } finally {
       setAdding(false);
     }
@@ -38,6 +39,7 @@ export function useBodyConditionLogs(petId: string) {
     } catch (err: unknown) {
       setLogs([]);
       setError(err instanceof Error ? err.message : "Something went wrong");
+      throw err;
     } finally {
       setLoading(false);
     }

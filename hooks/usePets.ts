@@ -21,6 +21,7 @@ export function usePets(userId: string) {
       setPets((prevPets) => [...prevPets, addedPet]);
     } catch (err: unknown) {
       setAddError(err instanceof Error ? err.message : "Something went wrong");
+      throw err;
     } finally {
       setAdding(false);
     }
@@ -35,6 +36,7 @@ export function usePets(userId: string) {
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Something went wrong");
       setPets([]);
+      throw err;
     } finally {
       setLoading(false);
     }

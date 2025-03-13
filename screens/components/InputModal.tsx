@@ -8,8 +8,10 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import type { LogType } from "@/types";
+import { colors } from "@/utils/colors";
 
 type InputModalProps = {
   type: LogType;
@@ -63,11 +65,14 @@ export const InputModal = ({
     >
       <TouchableOpacity
         style={[StyleSheet.absoluteFill, styles.container]}
-        onPress={handleClose}
+        disabled
       >
         <View style={styles.contentContainer}>
+          <TouchableOpacity onPress={handleClose} style={styles.closeButton}>
+            <FontAwesome name="close" size={18} color="#ccc" />
+          </TouchableOpacity>
           <TextInput
-            style={styles.input}
+            style={[styles.input, type === "vet" && { minHeight: 100 }]}
             placeholder={type === "weight" ? "Weight by KG" : undefined}
             value={input}
             onChangeText={setInput}
@@ -77,8 +82,12 @@ export const InputModal = ({
             maxLength={type !== "vet" ? 50 : undefined}
             autoFocus
           />
-          <TouchableOpacity onPress={handleSubmit}>
-            <Text>Submit</Text>
+          <TouchableOpacity
+            onPress={handleSubmit}
+            style={{ padding: 10 }}
+            hitSlop={20}
+          >
+            <Text style={styles.submitText}>Submit</Text>
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -97,7 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
-    width: "70%",
+    width: "80%",
     borderRadius: 16,
     marginBottom: "30%",
   },
@@ -109,5 +118,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "100%",
     maxHeight: 120,
+    marginTop: 24,
+  },
+  submitText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.dodgerBlue,
+  },
+  closeButton: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    padding: 10,
   },
 });

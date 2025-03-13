@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  ActivityIndicator,
 } from "react-native";
 import { useState } from "react";
 
@@ -102,9 +103,14 @@ export const Auth: React.FC<AuthScreenProps> = ({ navigation }) => {
           secureTextEntry={true}
         />
       </View>
-      {renderButton("Sign in", signInWithEmail)}
-      <View style={{ height: 10 }} />
-      {renderButton("Sign up", signUpWithEmail)}
+      {loading ? (
+        <ActivityIndicator size="large" color={colors.dodgerBlue} />
+      ) : (
+        <View style={{ gap: 10 }}>
+          {renderButton("Sign in", signInWithEmail)}
+          {renderButton("Sign up", signUpWithEmail)}
+        </View>
+      )}
     </ScrollView>
   );
 };

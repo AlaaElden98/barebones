@@ -73,6 +73,7 @@ export const InputModal = ({
             onChangeText={setInput}
             keyboardType={type === "weight" ? "numeric" : "default"}
             multiline={type === "vet"}
+            // limit other types to be single word/phrase
             maxLength={type !== "vet" ? 50 : undefined}
             autoFocus
           />

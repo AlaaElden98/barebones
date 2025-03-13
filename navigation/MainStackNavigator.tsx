@@ -32,15 +32,24 @@ const MainStackNavigator = () => {
   }
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerBackTitleVisible: false,
+      }}
+    >
       {session?.user ? (
         <>
           <Stack.Screen
             name="Profiles"
             options={{
+              headerTitle: "Pets",
               headerBackVisible: false,
               headerLeft: () => (
-                <TouchableOpacity onPress={() => supabase.auth.signOut()}>
+                <TouchableOpacity
+                  onPress={() => supabase.auth.signOut()}
+                  style={{ marginRight: 20 }}
+                >
                   <Text>Logout</Text>
                 </TouchableOpacity>
               ),
@@ -54,7 +63,12 @@ const MainStackNavigator = () => {
           >
             {(props) => <AddProfile {...props} session={session} />}
           </Stack.Screen>
-          <Stack.Screen name="TabBar" options={{ headerShown: false }}>
+          <Stack.Screen
+            name="TabBar"
+            options={{
+              headerShown: false,
+            }}
+          >
             {({ route, navigation }) => (
               <BottomTabNavigator
                 navigation={navigation}

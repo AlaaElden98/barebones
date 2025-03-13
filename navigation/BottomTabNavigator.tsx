@@ -15,6 +15,7 @@ const BottomTabNavigator = ({ petId, navigation }: BottomTabNavigatorProps) => {
       screenOptions={{
         tabBarShowLabel: false,
         headerLeft: () => <HeaderLeft navigation={navigation} />,
+        headerTitleAlign: "center",
       }}
     >
       <TabBar.Screen

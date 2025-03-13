@@ -3,10 +3,10 @@ import {
   View,
   Text,
   Alert,
-  Button,
   TextInput,
   StyleSheet,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import { CommonActions } from "@react-navigation/native";
 
@@ -105,7 +105,13 @@ export const AddProfile: React.FC<AddProfileScreenProps> = ({
       {adding ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <Button title="Add Pet" onPress={handleSubmit} />
+        <TouchableOpacity
+          onPress={handleSubmit}
+          style={styles.button}
+          hitSlop={20}
+        >
+          <Text style={styles.buttonText}>Add Pet</Text>
+        </TouchableOpacity>
       )}
 
       {addError && <Text style={styles.errorText}>{addError}</Text>}
@@ -140,5 +146,16 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     marginTop: 10,
+  },
+  button: {
+    alignItems: "center",
+    paddingVertical: 20,
+    width: 120,
+    backgroundColor: "transparent",
+    alignSelf: "center",
+  },
+  buttonText: {
+    color: "#007AFF",
+    fontSize: 18,
   },
 });

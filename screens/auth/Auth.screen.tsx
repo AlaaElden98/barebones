@@ -1,12 +1,13 @@
 // Example from https://supabase.com/docs/guides/getting-started/tutorials/with-expo-react-native?queryGroups=auth-store&auth-store=async-storage#set-up-a-login-component
 import {
   View,
+  Text,
   Alert,
-  Button,
   AppState,
   TextInput,
   StyleSheet,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { useState } from "react";
 
@@ -68,6 +69,19 @@ export const Auth: React.FC<AuthScreenProps> = ({ navigation }) => {
     return emailRegex.test(email) && password.length >= 6;
   };
 
+  const renderButton = (text: string, onPress: () => void) => {
+    return (
+      <TouchableOpacity
+        disabled={loading}
+        onPress={onPress}
+        hitSlop={20}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>{text}</Text>
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.verticallySpaced}>
@@ -87,20 +101,9 @@ export const Auth: React.FC<AuthScreenProps> = ({ navigation }) => {
           secureTextEntry={true}
         />
       </View>
-      <View style={[styles.verticallySpaced, styles.mt20]}>
-        <Button
-          title="Sign in"
-          disabled={loading}
-          onPress={() => signInWithEmail()}
-        />
-      </View>
-      <View style={styles.verticallySpaced}>
-        <Button
-          title="Sign up"
-          disabled={loading}
-          onPress={() => signUpWithEmail()}
-        />
-      </View>
+      {renderButton("Sign in", signInWithEmail)}
+      <View style={{ height: 10 }} />
+      {renderButton("Sign up", signUpWithEmail)}
     </ScrollView>
   );
 };
@@ -131,5 +134,15 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 5,
+  },
+  button: {
+    alignItems: "center",
+    paddingVertical: 20,
+    width: 120,
+    backgroundColor: "transparent",
+  },
+  buttonText: {
+    color: "#007AFF",
+    fontSize: 18,
   },
 });

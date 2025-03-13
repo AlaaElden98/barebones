@@ -8,15 +8,6 @@ export interface Pet {
   owner_id: string;
 }
 
-export interface Profile {
-  id: string;
-  user_id: string;
-  username: string;
-  full_name?: string | null | undefined;
-  avatar_url?: string;
-  updated_at?: string;
-}
-
 export interface WeightLog {
   id: string;
   pet_id: string;

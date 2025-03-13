@@ -29,15 +29,7 @@ export type AddProfileScreenProps = NativeStackScreenProps<
 > & {
   session: Session;
 };
-export type AuthScreenProps = NativeStackScreenProps<
-  MainStackParamList,
-  "Auth"
->;
-export type TabBarScreenProps = NativeStackScreenProps<
-  MainStackParamList,
-  "TabBar"
->;
-
+export type AuthScreenProps = NativeStackScreenProps<MainStackParamList, "Auth">;
 export type BodyConditionScreenProps = BottomTabScreenProps<
   BottomTabParamList,
   "BodyCondition"
@@ -49,12 +41,6 @@ export type WeightLogsScreenProps = BottomTabScreenProps<
 export type VetVisitsScreenProps = BottomTabScreenProps<
   BottomTabParamList,
   "VetVisits"
->;
-
-export type TabBarRouteProp = RouteProp<MainStackParamList, "TabBar">;
-export type BottomTabRouteProp = RouteProp<
-  BottomTabParamList,
-  keyof BottomTabParamList
 >;
 
 export type BottomTabNavigatorProps = {

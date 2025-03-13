@@ -1,5 +1,7 @@
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
+import { colors } from "@/utils/colors";
+
 export const EmptyComponent = ({
   loading,
   error,
@@ -8,7 +10,7 @@ export const EmptyComponent = ({
   error: string | null;
 }) => (
   <View style={styles.emptyContainer}>
-    {loading ? <ActivityIndicator size="large" color="#0000ff" /> : null}
+    {loading ? <ActivityIndicator size="large" color={colors.blue} /> : null}
     {!loading && error ? <Text style={styles.errorText}>{error}</Text> : null}
     {!loading && !error ? (
       <Text style={styles.emptyText}>No Data Found!</Text>

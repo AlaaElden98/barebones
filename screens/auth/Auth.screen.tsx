@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 
+import { colors } from "@/utils/colors";
 import { supabase } from "@/utils/supbase";
 import type { AuthScreenProps } from "@/navigation/types";
 
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   buttonText: {
-    color: "#007AFF",
+    color: colors.dodgerBlue,
     fontSize: 18,
   },
 });

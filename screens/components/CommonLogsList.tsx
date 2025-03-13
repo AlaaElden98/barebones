@@ -17,6 +17,7 @@ import type {
   BodyConditionLog,
 } from "@/types";
 import { Card, EmptyComponent, InputModal } from ".";
+import { colors } from "@/utils/colors";
 
 type CommonLogsListProps<T extends WeightLog | BodyConditionLog | VetVisitLog> =
   {
@@ -108,7 +109,7 @@ export const CommonLogsList = <
         activeOpacity={0.7}
       >
         {adding ? (
-          <ActivityIndicator size="small" color="#0000ff" />
+          <ActivityIndicator size="small" color={colors.blue} />
         ) : (
           <Text style={styles.addProfileButtonText}>Add new {type} log</Text>
         )}
@@ -120,11 +121,11 @@ export const CommonLogsList = <
 const styles = StyleSheet.create({
   contentContainer: {
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
   addProfileButton: {
     padding: 16,
@@ -133,6 +134,6 @@ const styles = StyleSheet.create({
   },
   addProfileButtonText: {
     fontSize: 16,
-    color: "#007AFF",
+    color: colors.dodgerBlue,
   },
 });

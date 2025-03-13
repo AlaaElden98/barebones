@@ -12,6 +12,7 @@ import { CommonActions } from "@react-navigation/native";
 
 import { usePets } from "@/hooks";
 import type { Pet } from "@/types";
+import { colors } from "@/utils/colors";
 import type { AddProfileScreenProps } from "@/navigation/types";
 
 export const AddProfile: React.FC<AddProfileScreenProps> = ({
@@ -103,7 +104,7 @@ export const AddProfile: React.FC<AddProfileScreenProps> = ({
       />
 
       {adding ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color={colors.blue} />
       ) : (
         <TouchableOpacity
           onPress={handleSubmit}
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     paddingTop: 40,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     borderRadius: 8,
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   buttonText: {
-    color: "#007AFF",
+    color: colors.dodgerBlue,
     fontSize: 18,
   },
 });

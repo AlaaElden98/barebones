@@ -9,6 +9,7 @@ import {
 
 import { usePets } from "@/hooks";
 import { PetCard } from "./components";
+import { colors } from "@/utils/colors";
 import { EmptyComponent } from "../components";
 import type { ProfilesScreenProps } from "@/navigation/types";
 
@@ -53,11 +54,11 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
   },
   addProfileButton: {
     padding: 16,
@@ -66,6 +67,6 @@ const styles = StyleSheet.create({
   },
   addProfileButtonText: {
     fontSize: 16,
-    color: "#007AFF",
+    color: colors.dodgerBlue,
   },
 });

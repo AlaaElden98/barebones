@@ -3,6 +3,7 @@ import type { Session } from "@supabase/supabase-js";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { TouchableOpacity, View, Text, ActivityIndicator } from "react-native";
 
+import { colors } from "@/utils/colors";
 import { supabase } from "@/utils/supbase";
 import type { MainStackParamList } from "./types";
 import BottomTabNavigator from "./BottomTabNavigator";
@@ -26,7 +27,7 @@ const MainStackNavigator = () => {
   if (session === undefined) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <ActivityIndicator size="large" color={colors.blue} />
       </View>
     );
   }

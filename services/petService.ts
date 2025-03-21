@@ -1,71 +1,174 @@
-import { Pet } from '../types';
-
-// Mock data for development
-const mockPets: Pet[] = [
-  {
-    id: '1',
-    name: 'Max',
-    species: 'Dog',
-    breed: 'Golden Retriever',
-    age: 3,
-    created_at: new Date().toISOString(),
-    owner_id: '123'
-  },
-  {
-    id: '2',
-    name: 'Luna',
-    species: 'Cat',
-    breed: 'Siamese',
-    age: 2,
-    created_at: new Date().toISOString(),
-    owner_id: '123'
-  }
-];
+import { supabase } from "@/utils/supbase";
+import type { BodyConditionLog, Pet, VetVisitLog, WeightLog } from "../types";
 
 export const petService = {
-  async getPets(): Promise<Pet[]> {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return [...mockPets];
-  },
+  async getPets(userId: string): Promise<Pet[]> {
+    try {
+      // TODO: Add pagination
+      const { data, error } = await supabase
+        .from("pets")
+        .select("*")
+        .eq("owner_id", userId);
 
-  async getPetById(id: string): Promise<Pet | null> {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const pet = mockPets.find(p => p.id === id);
-    return pet || null;
-  },
+      if (error) {
+        throw new Error(error.message);
+      }
 
-  async createPet(pet: Omit<Pet, 'id' | 'created_at'>): Promise<Pet> {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const newPet: Pet = {
-      ...pet,
-      id: Math.random().toString(36).substr(2, 9),
-      created_at: new Date().toISOString()
-    };
-    mockPets.push(newPet);
-    return newPet;
-  },
-
-  async updatePet(id: string, updates: Partial<Pet>): Promise<Pet> {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const index = mockPets.findIndex(p => p.id === id);
-    if (index === -1) {
-      throw new Error('Pet not found');
+      return data || [];
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
     }
-    mockPets[index] = { ...mockPets[index], ...updates };
-    return mockPets[index];
   },
 
-  async deletePet(id: string): Promise<void> {
-    // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    const index = mockPets.findIndex(p => p.id === id);
-    if (index === -1) {
-      throw new Error('Pet not found');
+  async createPet(
+    pet: Omit<Pet, "id" | "created_at" | "owner_id">,
+    userId: string
+  ): Promise<Pet> {
+    try {
+      const { data, error } = await supabase
+        .from("pets")
+        .insert([{ ...pet, owner_id: userId }])
+        .select("*")
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
     }
-    mockPets.splice(index, 1);
-  }
-}; 
+  },
+
+  async getBodyConditionLogs(petId: string): Promise<BodyConditionLog[]> {
+    try {
+      const { data, error } = await supabase
+        .from("body_condition_logs")
+        .select("*")
+        .eq("pet_id", petId)
+        .order("date", { ascending: false });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data || [];
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
+  },
+
+  async createBodyConditionLog(
+    log: Omit<BodyConditionLog, "id" | "pet_id">,
+    petId: string
+  ): Promise<BodyConditionLog> {
+    try {
+      const { data, error } = await supabase
+        .from("body_condition_logs")
+        .insert([{ ...log, pet_id: petId }])
+        .select("*")
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
+  },
+  async getWeightLogs(petId: string): Promise<WeightLog[]> {
+    try {
+      const { data, error } = await supabase
+        .from("weight_logs")
+        .select("*")
+        .eq("pet_id", petId)
+        .order("date", { ascending: false });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data || [];
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
+  },
+
+  async createWeightLog(
+    log: Omit<WeightLog, "id" | "pet_id">,
+    petId: string
+  ): Promise<WeightLog> {
+    try {
+      const { data, error } = await supabase
+        .from("weight_logs")
+        .insert([{ ...log, pet_id: petId }])
+        .select("*")
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
+  },
+
+  async getVetVisitLogs(petId: string): Promise<VetVisitLog[]> {
+    try {
+      const { data, error } = await supabase
+        .from("vet_visit_logs")
+        .select("*")
+        .eq("pet_id", petId)
+        .order("date", { ascending: false });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data || [];
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
+  },
+  async createVetVisitLog(
+    log: Omit<VetVisitLog, "id" | "pet_id">,
+    petId: string
+  ): Promise<VetVisitLog> {
+    try {
+      const { data, error } = await supabase
+        .from("vet_visit_logs")
+        .insert([{ ...log, pet_id: petId }])
+        .select("*")
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (err: unknown) {
+      throw new Error(
+        err instanceof Error ? err.message : "Something went wrong"
+      );
+    }
+  },
+};
